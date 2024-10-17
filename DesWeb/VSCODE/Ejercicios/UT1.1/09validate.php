@@ -20,13 +20,12 @@
         <h1>Ej09 - PIZZA</h1>
     </header>
 
-    <body>
         <?php
 
         $error = false;
         $errorMessages = [];
 
-        include_once "funcionesvalidate.php";
+        include_once "09validate_func.php";
 
         if (!filter_input(INPUT_POST, 'tipomasa', FILTER_CALLBACK, array('options' => 'valMasa'))) {
             $error = true;
@@ -163,7 +162,6 @@
         ?>
 
 
-    </body>
 
 </body>
 
