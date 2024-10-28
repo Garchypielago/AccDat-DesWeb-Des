@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     $error = false;
     $errorMessages = [];
-
+    
     if (!filter_input(INPUT_POST, 'email', FILTER_CALLBACK, array('options' => 'ValLoginEmail'))) {
         $error = true;
         array_push($errorMessages, 'El usuario no existe.');
@@ -54,6 +54,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
     <style>
+        /* :root{
+            --bs-warning: black; 
+            --bs-warning-rgb: 0,0,0;
+            } */
         .btn-custom-lg {
             height: 40px;
             /* Puedes ajustar la altura a lo que desees */
