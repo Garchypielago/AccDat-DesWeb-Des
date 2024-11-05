@@ -91,72 +91,87 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+    <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="styles/basic-style.css"> <!-- Hoja de estilos -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <style>
+        .btn-custom-lg {
+            height: 40px;
+            /* Puedes ajustar la altura a lo que desees */
+            margin-left: 15px;
+            padding: 0px 30px;
+            /* Ajusta el relleno interno (padding) si es necesario */
+        }
+    </style>
 </head>
 
 <body>
     <div class="container mt-5">
-        <?php if ($creado): ?>
-            <form action="" method="POST" class="shadow p-4 rounded bg-light">
-                <h2>Usuario creado.</h2>
-                <a href="index.php" class="btn btn-secondary btn-custom-sm">Volver al Login</a>
-            <?php else: ?>
-                <?php if ($error): ?>
-                    <div class="alert alert-warning" role="alert">
-                        <?php foreach ($errorMessages as $message): ?>
-                            <p><?php echo $message; ?></p>
-                        <?php endforeach; ?>
-                    </div>
-                <?php endif; ?>
+        <?php
 
-                <form action="" method="POST" class="shadow p-4 rounded bg-light">
-                    <!-- Correo -->
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Correo:</label>
-                        <input type="text" class="form-control" id="email" name="email">
-                        <div id="emailHelp" class="mt-3 small">No compartiremos tu correo con nadie más.</div>
-                    </div>
+        if ($creado) {
+        ?>
+            <h2> Usuario creado.</h2>
+            <a href="index.php" class="btn btn-secondary btn-custom-sm">Volver al Login</a>
 
-                    <!-- Nombre -->
-                    <div class="mb-3">
-                        <label for="firstName" class="form-label">Nombre:</label>
-                        <input type="text" class="form-control" id="firstName" name="firstName">
-                    </div>
+        <?php
+        } else {
 
-                    <!-- Apellidos -->
-                    <div class="mb-3">
-                        <label for="lastName" class="form-label">Apellidos:</label>
-                        <input type="text" class="form-control" id="lastName" name="lastName">
-                    </div>
+            // Manejo de los errores
+            if ($error) {
+                foreach ($errorMessages as $message) {
+                    echo '<div class="alert alert-warning" role="alert">';
+                    echo "<p>" . $message . "</p>";
+                    echo '</div>';
+                }
+            }
+        ?>
 
-                    <!-- Cumpleaños -->
-                    <div class="mb-3">
-                        <label for="birthDate" class="form-label">Selecciona tu fecha de nacimineto:</label>
+            <form action="" method="POST">
+                <!-- Correo -->
+                <div class="form-group">
+                    <label for="id">Correo o usuario:</label>
+                    <input type="text" class="form-control" id="email" name="email">
+                </div>
+
+                <!-- Nombre -->
+                <div class="form-group">
+                    <label for="firstName">Nombre:</label>
+                    <input type="text" class="form-control" id="firstName" name="firstName">
+                </div>
+
+                <!-- Apellidos -->
+                <div class="form-group">
+                    <label for="lastName">Apellidos:</label>
+                    <input type="text" class="form-control" id="lastName" name="lastName">
+                </div>
+
+                <!-- Cumpleaños -->
+                <div class="form-group">
+                    <label>Selecciona fecha: </label>
                         <input class="form-control" type="date" id="birthDate" name="birthDate">
-                    </div>
+                </div>
 
-                    <!-- Contraseña -->
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Contraseña:</label>
-                        <input type="password" class="form-control" id="password" name="password">
-                    </div>
+                <!-- Contraseña -->
+                <div class="form-group">
+                    <label for="password">Contraseña:</label>
+                    <input type="text" class="form-control" id="password" name="password">
+                </div>
 
-                    <!-- Repite Contraseña -->
-                    <div class="mb-3">
-                        <label for="passwordCheck" class="form-label">Repite la contraseña:</label>
-                        <input type="password" class="form-control" id="passwordCheck" name="passwordCheck">
-                    </div>
+                <!-- Rep Contraseña -->
+                <div class="form-group">
+                    <label for="passwordCheck">Repite la contraseña:</label>
+                    <input type="text" class="form-control" id="passwordCheck" name="passwordCheck">
+                </div>
 
-                    <!-- Botón de enviar -->
-                    <div class="d-flex justify-content-between">
-                        <button class="btn btn-primary btn-custom-lg" type="submit">Registrarse</button>
-                    </div>
-                <?php endif; ?>
-                </form>
+                <!-- Botón de enviar -->
+                <br>
+                <div class="d-flex gap-2">
+                    <button class="btn btn-primary btn-custom-lg" type="submit">Registrarse</button>
+                </div>
+            </form>
     </div>
+<?php } ?>
 </body>
 
 </html>

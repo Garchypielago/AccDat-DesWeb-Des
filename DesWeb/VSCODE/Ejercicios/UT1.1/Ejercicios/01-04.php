@@ -19,7 +19,7 @@
     $numeroTabla = 5;
     ?>
     <ul>
-        <? for ($x = 0; $x <= 10; $x++) { ?>
+        <?php for ($x = 0; $x <= 10; $x++) { ?>
             <li>
                 <?php echo $numeroTabla . " x " . $x . ": " . ($numeroTabla * $x); ?>
             </li>
@@ -30,7 +30,7 @@
     <h2>Ejercicio 02</h2>
     <table class="table table-bordered">
         <tbody>
-            <? for ($x = 0; $x <= 10; $x++) { ?>
+            <?php for ($x = 0; $x <= 10; $x++) { ?>
                 <tr>
                     <td>
                         <?php echo $numeroTabla . " x " . $x . ": " . ($numeroTabla * $x); ?>
@@ -48,13 +48,13 @@
         <tbody>
             <tr>
                 <th></th>
-                <? for (; $a <= $b; $a++) { ?>
+                <?php for (; $a <= $b; $a++) { ?>
                     <th>
                         <?php echo $a; ?>
                     </th>
                 <?php } ?>
             </tr>
-            <? for ($x = 0; $x <= 10; $x++) { ?>
+            <?php for ($x = 0; $x <= 10; $x++) { ?>
                 <!-- declaro variables de nuevo por bucle -->
                 <?php $a = 2;
                 $b = 4; ?>
@@ -63,7 +63,7 @@
                     <td>
                         <?php echo $x; ?>
                     </td>
-                    <? for (; $a <= $b; $a++) { ?>
+                    <?php for (; $a <= $b; $a++) { ?>
                         <td>
                             <?php echo $a * $x; ?>
                         </td>
@@ -113,7 +113,7 @@
                     <th>
                         <?= $nombreDia ?>
                     </th>
-                <? endforeach ?>
+                <?php endforeach ?>
             </tr>
 
             <!-- while para imprimri las filas necesarias (4, 5 o 6) -->
@@ -137,8 +137,6 @@
 
         </tbody>
     </table>
-
-    <br>
 
 </body>
 

@@ -7,181 +7,142 @@ $eventId = $_GET["eventId"];
 $event = $calendarDataAccess->getEventById($eventId);
 $userevents = $calendarDataAccess->getEventsByUserId($_SESSION["userId"]);
 $usercheck = false;
+$error = false;
 
 if (in_array($event, $userevents)) {
     $usercheck = true;
 }
 
-// es cunado le llega si mimso
+// Manejo del formulario al recibir una solicitud POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-    include  __DIR__ . "/utils/validation.php";
+    include __DIR__ . "/utils/validation.php";
     $errorMessages = [];
 
-    // validacion de titulo
-    $valFirstName = filter_input(INPUT_POST, 'firstName', FILTER_CALLBACK, array('options' => 'ValRegFirstName'));
-
-    if ($valFirstName != $_POST['firstName']) {
+    // Validación del título
+    $valTitle = filter_input(INPUT_POST, 'title', FILTER_CALLBACK, array('options' => 'ValEditTitle'));
+    if ($valTitle != $_POST['title']) {
         $error = true;
-        array_push($errorMessages, $valFirstName);
+        array_push($errorMessages, $valTitle);
     } else {
-        $firstName = ValRegFirstName($_POST['firstName']);
+        $title = ValEditTitle($_POST['title']);
     }
 
-    // validacion de descripcion
-    $valFirstName = filter_input(INPUT_POST, 'firstName', FILTER_CALLBACK, array('options' => 'ValRegFirstName'));
-
-    if ($valFirstName != $_POST['firstName']) {
+    // Validación de la descripción
+    $valDescription = filter_input(INPUT_POST, 'description', FILTER_CALLBACK, array('options' => 'ValEditDescription'));
+    if ($valDescription != $_POST['description']) {
         $error = true;
-        array_push($errorMessages, $valFirstName);
+        array_push($errorMessages, $valDescription);
     } else {
-        $firstName = ValRegFirstName($_POST['firstName']);
+        $description = ValEditDescription($_POST['description']);
     }
 
-    // validacion de otros campos
-    $valBirthDate = filter_input(INPUT_POST, 'birthDate', FILTER_CALLBACK, array('options' => 'ValRegBirthDate'));
-
-    if ($_POST['birthDate'] == null || $valBirthDate != $_POST['birthDate']) {
+    // Validación de fechas
+    $valStartDate = filter_input(INPUT_POST, 'startDate', FILTER_CALLBACK, array('options' => 'ValStartDate'));
+    if ($_POST['startDate'] == null || $valStartDate != $_POST['startDate']) {
         $error = true;
-        array_push($errorMessages, $valBirthDate);
+        array_push($errorMessages, $valStartDate);
     } else {
-        $birthDate = ValRegBirthDate($_POST['birthDate']);
+        $startDate = ValStartDate($_POST['startDate']);
+        $endDate = $_POST['endDate'];
+        $valEndDate = filter_input(INPUT_POST, 'endDate', FILTER_CALLBACK, array('options' => function ($endDate) use ($startDate) {
+            return ValEndDate($endDate, $startDate);
+        }));
+
+        if ($_POST['endDate'] == null || $valEndDate != $_POST['endDate']) {
+            $error = true;
+            array_push($errorMessages, $valEndDate);
+        } else {
+            $endDate = ValEndDate($endDate, $startDate);
+        }
     }
 
-    $valBirthDate = filter_input(INPUT_POST, 'birthDate', FILTER_CALLBACK, array('options' => 'ValRegBirthDate'));
-
-    if ($_POST['birthDate'] == null || $valBirthDate != $_POST['birthDate']) {
-        $error = true;
-        array_push($errorMessages, $valBirthDate);
-    } else {
-        $birthDate = ValRegBirthDate($_POST['birthDate']);
-    }
-
-
-    // todo modificar el evento
+    // Modificación del evento si no hay errores
     if (!$error) {
-        require_once __DIR__ . '/entities/User.php';
+        require_once __DIR__ . '/entities/Event.php';
+        $newEvent = new Event($event->getUserId(), $title, $description, $startDate, $endDate, $event->getId());
 
-        $newUser = new User($email, $password, $firstName, $lastName, $birthDate, null);
-
-        $creado = $calendarDataAccess->createUser($newUser);
-
+        $creado = $calendarDataAccess->updateEvent($newEvent);
         if ($creado) {
             session_regenerate_id(true);
+            header("Location: events.php");
+            die;
         } else {
             $error = true;
-            array_push($errorMessages, "FATAL ERROR: no se pudo crear el usuario.");
+            array_push($errorMessages, "FATAL ERROR: no se pudo modificar el evento.");
         }
     }
 }
-// trozo de samu de validacion
-// } else {
-//     $eventId = $_GET["eventId"];
-//     $event = $calendarDataAccess->getEventById($eventId);
-//     $userevents = $calendarDataAccess->getEventsByUserId($_SESSION["userId"]);
-//     $usercheck = false;
-
-//     if (in_array($event, $userevents)) {
-//         $usercheck = true;
-//     }
-// }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Edit event</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <style>
-        .btn-custom-lg {
-            height: 40px;
-            /* Puedes ajustar la altura a lo que desees */
-            margin-left: 15px;
-            padding: 0px 30px;
-            /* Ajusta el relleno interno (padding) si es necesario */
-        }
-
-        .btn-custom-sm {
-            height: 30px;
-            /* Puedes ajustar la altura a lo que desees */
-            margin-top: 10px;
-            padding: 0px 20px;
-            /* Ajusta el relleno interno (padding) si es necesario */
-        }
-    </style>
+    <link rel="stylesheet" href="styles/basic-style.css"> <!-- Hoja de estilos -->
 </head>
 
 <body>
-    <?php
-    // esto cunado llega de otro lado y hace comprobacion y mete el error o no
-    if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-        if ($event && $usercheck) {
-    ?>
-            <div class="container mt-5">
-                <!-- <form method='post' action=''>
-                <button name='eventId' value='{$eventId}' type='submit'>Sí, eliminar el evento</button>
-                <button type='submit'>No, volver al listado de eventos</button>
-            </form> -->
+    <?php if ($event && $usercheck): ?>
+        <div class="container container-custom mt-5">
+            <div class="shadow p-4 rounded bg-light">
+                <!-- Manejo de errores -->
+                <?php if ($error): ?>
+                    <div class="alert alert-warning" role="alert">
+                        <?php foreach ($errorMessages as $message): ?>
+                            <p><?php echo $message; ?></p>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
 
                 <form action="" method="POST">
-
-                    <!-- Titulo -->
+                    <!-- Título -->
                     <div class="form-group">
-                        <label for="title">Titulo:</label>
+                        <label for="title">Título:</label>
                         <input type="text" class="form-control" id="title" name="title" value="<?php echo $event->getTitle(); ?>">
                     </div>
 
-                    <!-- Descripcion -->
+                    <!-- Descripción -->
                     <div class="form-group">
                         <label for="description">Descripción:</label>
-                        <input type="text" class="form-control" id="description" name="description" value="<?php echo $event->getDescription(); ?>">
+                        <textarea class="form-control" placeholder="Describe este evento" id="description" name="description" style="height: 100px"><?php echo $event->getDescription(); ?></textarea>
                     </div>
 
                     <!-- Fecha Inicio -->
                     <div class="form-group">
-                        <label>Selecciona fecha de inicio: </label>
+                        <label>Selecciona fecha de inicio:</label>
                         <input class="form-control" type="datetime-local" id="startDate" name="startDate" value="<?php echo $event->getStartDate(); ?>">
                     </div>
 
                     <!-- Fecha Final -->
                     <div class="form-group">
-                        <label>Selecciona fecha de finalización: </label>
+                        <label>Selecciona fecha de finalización:</label>
                         <input class="form-control" type="datetime-local" id="endDate" name="endDate" value="<?php echo $event->getEndDate(); ?>">
                     </div>
 
                     <br>
-                    <div class="d-flex gap-2">
+                    <div class="d-flex justify-content-between">
                         <button class="btn btn-primary btn-custom-lg" type="submit">Modificar</button>
-                        <a href='events.php' class='btn btn-secondary btn-custom-sm'>Volver</a></p>
+                        <a href='events.php' class='btn btn-secondary btn-custom-sm'>Volver</a>
                     </div>
-
                 </form>
             </div>
-
-        <?php
-        } else {
-        ?>
-            <div class="container mt-5">
+        </div>
+    <?php else: ?>
+        <div class="container container-custom mt-5">
+            <div class="shadow p-4 rounded bg-light">
                 <div class="alert alert-warning" role="alert">
                     No se puede acceder al evento porque no existe, o no tiene permisos para verlo.
                 </div>
                 <br>
                 <div class="d-flex gap-2">
-                    <a href='events.php' class='btn btn-secondary btn--sm'>Volver</a></p>
+                    <a href='events.php' class='btn btn-secondary btn-custom-sm'>Volver</a>
                 </div>
             </div>
-    <?php
-        }
-        // este le llega pr post, d si mismo, aqu hacer el fomr como en el otro
-    } else {
-        // todo redirigir a eventos.
-        echo "<h2>EVENTO BORRADO CON ÉXITO</h2>";
-        echo "<p><a href=events.php>VOLVER AL LISTADO DE EVENTOS</a></p>";
-    } ?>
-
+        </div>
+    <?php endif; ?>
 </body>
 
 </html>

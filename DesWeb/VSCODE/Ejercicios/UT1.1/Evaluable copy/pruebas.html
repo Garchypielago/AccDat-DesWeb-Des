@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eventos y Calendario</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.11.3/main.min.css" rel="stylesheet" />
+    <style>
+        body {
+            background-color: #f8f9fa; /* Fondo claro */
+        }
+        .event-container {
+            width: 100%;
+            max-height: 200px; /* Altura para 5 eventos aproximadamente */
+            overflow-y: auto; /* Scroll solo vertical */
+            border: 1px solid #007bff; /* Borde azul */
+            border-radius: 5px; /* Bordes redondeados */
+            padding: 10px; /* Espacio interno */
+            background-color: white; /* Fondo blanco */
+        }
+        .calendar {
+            margin-top: 20px; /* Espacio superior para separar el calendario */
+            border: 1px solid #007bff; /* Borde azul */
+            padding: 15px; /* Espacio interno del calendario */
+            background-color: white; /* Fondo blanco */
+        }
+    </style>
+</head>
+<body>
+
+<div class="container mt-5">
+    <h2 class="text-center">Tabla de Eventos</h2>
+    <div class="event-container">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Evento</th>
+                    <th>Fecha</th>
+                    <th>Descripción</th>
+                </tr>
+            </thead>
+            <tbody id="event-table-body">
+                <tr>
+                    <td>Reunión de equipo</td>
+                    <td>2024-11-01</td>
+                    <td>Reunión mensual para discutir el progreso del proyecto.</td>
+                </tr>
+                <tr>
+                    <td>Conferencia</td>
+                    <td>2024-11-05</td>
+                    <td>Asistir a la conferencia anual de tecnología.</td>
+                </tr>
+                <tr>
+                    <td>Taller de diseño</td>
+                    <td>2024-11-10</td>
+                    <td>Taller sobre las mejores prácticas en diseño UI/UX.</td>
+                </tr>
+                <tr>
+                    <td>Cena de fin de año</td>
+                    <td>2024-12-15</td>
+                    <td>Cena para celebrar los logros del año.</td>
+                </tr>
+                <tr>
+                    <td>Presentación del proyecto</td>
+                    <td>2024-11-20</td>
+                    <td>Presentación del nuevo proyecto a la dirección.</td>
+                </tr>
+                <tr>
+                    <td>Revisión de objetivos</td>
+                    <td>2024-11-25</td>
+                    <td>Revisión de los objetivos establecidos para el próximo trimestre.</td>
+                </tr>
+                <tr>
+                    <td>Planificación trimestral</td>
+                    <td>2024-12-01</td>
+                    <td>Planificación de objetivos para el próximo trimestre.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="calendar" id="calendar"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.11.3/main.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Inicializar el calendario
+        const calendarEl = document.getElementById('calendar');
+        const calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth', // Vista inicial del calendario
+            events: [
+                {
+                    title: 'Reunión de equipo',
+                    start: '2024-11-01'
+                },
+                {
+                    title: 'Conferencia',
+                    start: '2024-11-05'
+                },
+                {
+                    title: 'Taller de diseño',
+                    start: '2024-11-10'
+                },
+                {
+                    title: 'Cena de fin de año',
+                    start: '2024-12-15'
+                },
+                {
+                    title: 'Presentación del proyecto',
+                    start: '2024-11-20'
+                },
+                {
+                    title: 'Revisión de objetivos',
+                    start: '2024-11-25'
+                },
+                {
+                    title: 'Planificación trimestral',
+                    start: '2024-12-01'
+                }
+            ],
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+            }
+        });
+        calendar.render();
+    });
+</script>
+</body>
+</html>

@@ -59,7 +59,7 @@
                                     <th>
                                         <?= $nombreDia ?>
                                     </th>
-                                <? endforeach ?>
+                                <?php endforeach ?>
                             </tr>
 
                             <!-- while para imprimri las filas necesarias (4, 5 o 6) -->

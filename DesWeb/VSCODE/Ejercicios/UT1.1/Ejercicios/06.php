@@ -39,13 +39,13 @@
                     <tbody>
                         <tr>
                             <th></th>
-                            <? for (; $a <= $b; $a++) { ?>
+                            <?php for (; $a <= $b; $a++) { ?>
                                 <th>
                                     <?php echo $a; ?>
                                 </th>
                             <?php } ?>
                         </tr>
-                        <? for ($x = 0; $x <= 10; $x++) { ?>
+                        <?php for ($x = 0; $x <= 10; $x++) { ?>
                             <!-- declaro variables de nuevo por bucle -->
                             <?php $a = $_POST['inicio'];
                             $b = $_POST['final']; ?>
@@ -54,7 +54,7 @@
                                 <td>
                                     <?php echo $x; ?>
                                 </td>
-                                <? for (; $a <= $b; $a++) { ?>
+                                <?php for (; $a <= $b; $a++) { ?>
                                     <td>
                                         <?php echo $a * $x; ?>
                                     </td>

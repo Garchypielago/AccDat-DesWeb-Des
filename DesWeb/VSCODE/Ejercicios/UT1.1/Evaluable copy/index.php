@@ -56,27 +56,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     <div class="container mt-5">
         <?php
         // Manejo de los errores
-        if ($error): ?>
-            <div class="alert alert-warning" role="alert">
-                <?php foreach ($errorMessages as $message): ?>
-                    <p><?php echo $message; ?></p>
-                <?php endforeach; ?>
-            </div>
-        <?php endif; ?>
+        if ($error) {
+            foreach ($errorMessages as $message) {
+                echo '<div class="alert alert-warning" role="alert">' . $message . '</div>';
+            }
+        }
+        ?>
 
         <form action="" method="POST" class="shadow p-4 rounded bg-light">
 
             <!-- Correo -->
             <div class="mb-3">
                 <label for="email" class="form-label">Correo:</label>
-                <!-- pongo type text para ver qeu funciona la validacion sin el propio html -->
-                <input type="text" class="form-control" id="email" name="email" >
+                <input type="email" class="form-control" id="email" name="email" required>
+                <div id="emailHelp" class="form-text">No compartiremos tu correo con nadie más.</div>
             </div>
 
             <!-- Contraseña -->
             <div class="mb-3">
                 <label for="password" class="form-label">Contraseña:</label>
-                <input type="password" class="form-control" id="password" name="password" >
+                <input type="password" class="form-control" id="password" name="password" required>
             </div>
 
             <!-- Botón de enviar -->

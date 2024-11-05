@@ -1,0 +1,38 @@
+body {
+    background: url(img/fondo07.jpg); /* Color de fondo verde azulado claro */
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.container {
+    max-width: 600px;
+    margin-top: 50px;
+    padding: 20px;
+    background-color: rgb(241, 130, 137,0.8); /* Fondo blanco para el formulario */
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(241, 130, 137, 1);
+}
+
+.btn-primary {
+    background-color: rgb(238, 105, 114); /* Color verde azulado para el botón */
+    border-color: rgb(177, 76, 83); /* Color del borde del botón */
+}
+
+.btn-primary:hover {
+    background-color: rgb(226, 55, 66); /* Color del botón al pasar el mouse */
+}
+
+.alert {
+    margin-bottom: 20px; /* Espaciado inferior para las alertas */
+}
+
+/* Personalización de botones */
+.btn-custom-lg {
+    height: 40px; 
+    padding: 0px 30px; 
+}
+
+.btn-custom-sm {
+    height: 30px; 
+    padding: 0px 20px; 
+    margin-top: 12px;
+}

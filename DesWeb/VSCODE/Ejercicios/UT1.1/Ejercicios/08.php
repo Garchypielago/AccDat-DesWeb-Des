@@ -24,94 +24,94 @@
 
         if (is_numeric($mes) && is_numeric($anio)) {
 
-            if ( $mes > 0 && $mes <= 12 && $anio>0 ){
+            if ($mes > 0 && $mes <= 12 && $anio > 0) {
 
-                    // de aqui saco el nombre en String del dia (lines, martes, miercoles...)
-                    $date = date_create_from_format("d-m-Y", "01-{$mes}-{$anio}");
-                    $dia = date_format($date, "l");
+                // de aqui saco el nombre en String del dia (lines, martes, miercoles...)
+                $date = date_create_from_format("d-m-Y", "01-{$mes}-{$anio}");
+                $dia = date_format($date, "l");
 
-                    // de aqui saco el numero de dias del mes segun el año (bisiestos)
-                    $diasMes = cal_days_in_month(CAL_JULIAN, date_format($date, "m"), date_format($date, "Y"));
+                // de aqui saco el numero de dias del mes segun el año (bisiestos)
+                $diasMes = cal_days_in_month(CAL_JULIAN, date_format($date, "m"), date_format($date, "Y"));
 
-                    // necesitare este arrray para empezar el calendari en el dia
-                    $diasSemana = [
-                        "Monday" => 1,
-                        "Tuesday" => 2,
-                        "Wednesday" => 3,
-                        "Thursday" => 4,
-                        "Friday" => 5,
-                        "Saturday" => 6,
-                        "Sunday" => 7
-                    ];
+                // necesitare este arrray para empezar el calendari en el dia
+                $diasSemana = [
+                    "Monday" => 1,
+                    "Tuesday" => 2,
+                    "Wednesday" => 3,
+                    "Thursday" => 4,
+                    "Friday" => 5,
+                    "Saturday" => 6,
+                    "Sunday" => 7
+                ];
 
-                    // variables de apoyo para imprimir
-                    $empezado = false;
-                    $dias = 1;
-                    ?>
+                // variables de apoyo para imprimir
+                $empezado = false;
+                $dias = 1;
+    ?>
 
-                    <table class="table table-bordered">
-                        <tbody>
-                            <!-- primer th para la cabecera, nobre de dias -->
+                <table class="table table-bordered">
+                    <tbody>
+                        <!-- primer th para la cabecera, nobre de dias -->
+                        <tr>
+                            <!-- for each para emprimir con el array los nmobre de la semana -->
+                            <?php foreach ($diasSemana as $nombreDia => $noSirveEstaVariable): ?>
+                                <th>
+                                    <?= $nombreDia ?>
+                                </th>
+                            <?php endforeach ?>
+                        </tr>
+
+                        <!-- while para imprimri las filas necesarias (4, 5 o 6) -->
+                        <?php while ($dias <= $diasMes) { ?>
                             <tr>
-                                <!-- for each para emprimir con el array los nmobre de la semana -->
-                                <?php foreach ($diasSemana as $nombreDia => $noSirveEstaVariable): ?>
-                                    <th>
-                                        <?= $nombreDia ?>
-                                    </th>
-                                <? endforeach ?>
-                            </tr>
-
-                            <!-- while para imprimri las filas necesarias (4, 5 o 6) -->
-                            <?php while ($dias <= $diasMes) { ?>
-                                <tr>
-                                    <!-- for each para las 7 celdas de cada semana -->
-                                    <?php for ($x = 1; $x < 8; $x++) { ?>
-                                        <td>
-                                            <!-- if para saber que dia imprime
+                                <!-- for each para las 7 celdas de cada semana -->
+                                <?php for ($x = 1; $x < 8; $x++) { ?>
+                                    <td>
+                                        <!-- if para saber que dia imprime
                                                 $diasSemana[$dia] == $x, para empezar a imprimir en el dia adecuado
                                                 $empezado == true, para saber si debe seguir imprimiendo
                                                 $dias <= $diasMes, para dejar de imprimir en el ultimo dia-->
-                                            <?php if (( $diasSemana[$dia] == $x || $empezado == true) && $dias <= $diasMes) {
-                                                $empezado = true;
-                                                echo "<p>".$dias++."</p>";
-                                            } ?>
-                                        </td>
-                                    <?php } ?>
-                                </tr>
-                            <?php } ?>
+                                        <?php if (($diasSemana[$dia] == $x || $empezado == true) && $dias <= $diasMes) {
+                                            $empezado = true;
+                                            echo "<p>" . $dias++ . "</p>";
+                                        } ?>
+                                    </td>
+                                <?php } ?>
+                            </tr>
+                        <?php } ?>
 
-                        </tbody>
-                    </table>
+                    </tbody>
+                </table>
 
-    <?php 
-            } else if ( 0<= $mes){
+    <?php
+            } else if (0 <= $mes) {
                 echo "El mes debe estar entre 1 y 12";
-            } else if ( $mes > 12){
+            } else if ($mes > 12) {
                 echo "El mes debe estar entre 1 y 12";
-            }else {
+            } else {
                 echo "El año debe ser mayor a 0";
             }
-        } else if (!is_numeric($mes) && !is_numeric($anio)){
+        } else if (!is_numeric($mes) && !is_numeric($anio)) {
             echo "Ninguno de los valores son numericos";
-        }else if (!is_numeric($mes)){
+        } else if (!is_numeric($mes)) {
             echo "El primer valor no es numerico";
-        }else {
+        } else {
             echo "El segundo valor no es numerico";
         }
-    } else if (!isset($mes) && !isset($anio)){
+    } else if (!isset($mes) && !isset($anio)) {
         echo "Ninguno valor definido";
-    }else if (!isset($mes)){
+    } else if (!isset($mes)) {
         echo "El primer valor no esta definido";
-    }else {
+    } else {
         echo "El primer valor no esta definido";
     }
-    
+
     ?>
 
     <br>
     <form method="post" action="http://localhost:8000/08.html" class="form-label">
         <div class="d-grid gap-2">
-                <button class="btn btn-primary" type="submit">Volver</button>
+            <button class="btn btn-primary" type="submit">Volver</button>
         </div>
     </form>
 

@@ -1,0 +1,154 @@
+body {
+    background: url(img/fondo07.jpg);
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-position: center;
+    height: 100vh; 
+    margin: 0; 
+}
+
+.container {
+    max-width: 600px;
+    margin-top: 50px;
+    padding: 20px;
+    background-color: rgb(241, 130, 137,0.8); 
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(241, 130, 137, 1);
+}
+
+.btn-primary {
+    background-color: rgb(238, 105, 114); 
+    border-color: rgb(177, 76, 83); 
+}
+
+.btn-primary:hover {
+    background-color: rgb(226, 55, 66);
+}
+
+.alert {
+    margin-bottom: 20px; 
+}
+
+.btn-custom-lg {
+    height: 40px; 
+    padding: 0px 30px; 
+}
+
+.btn-custom-sm {
+    height: 30px; 
+    padding: 0px 20px; 
+    margin-top: 10px;
+}
+
+.container-custom {
+    max-width: 1000px;
+    background-color: rgba(241, 130, 137, 0.8);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(241, 130, 137, 1);
+}
+
+.btn-action {
+    color: black;
+    border: 2px solid rgb(177, 76, 83);
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+td .btn-action:last-child {
+    margin-left: 15px;
+}
+
+tr td:nth-child(2) {
+    text-align: center;
+}
+
+.btn-action:hover {
+    border: 2px solid rgb(177, 76, 83);
+    color: rgb(226, 55, 66);
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+
+.small {
+    font-size: 0.8rem; /* Tamaño de fuente más pequeño */
+    color: rgb(100, 100, 100); /* Color gris para el texto */
+    margin-bottom: 0px;
+}
+
+
+/* esto esta hecho con chaatgpt */
+.event-title {
+    position: relative; /* Para posicionar el tooltip respecto al título */
+    display: inline-block; /* Para que el tooltip se alinee correctamente */
+}
+
+.event-tooltip {
+    display: none; /* Ocultamos el tooltip por defecto */
+    position: absolute; /* Para que aparezca sobre el contenido */
+    background-color: rgba(241, 130, 137, 0.9); /* Fondo semi-transparente */
+    color: black; /* Color del texto */
+    border: 1px solid rgb(177, 76, 83); /* Borde */
+    padding: 10px; /* Espaciado interno */
+    border-radius: 5px; /* Bordes redondeados */
+    z-index: 100; /* Asegura que el tooltip esté encima de otros elementos */
+    top: 50%; /* Coloca el tooltip verticalmente centrado respecto al título */
+    left: 100%; /* Lo coloca a la derecha del título */
+    transform: translateY(-50%); /* Ajusta el centro verticalmente */
+    white-space: nowrap; /* Evita que el texto se rompa */
+}
+
+.event-title:hover .event-tooltip {
+    display: block; /* Muestra el tooltip al pasar el mouse */
+}
+
+/*  */
+.user-icon {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+}
+
+.circulo {
+    border: 2px solid rgb(241, 130, 137);
+    border-radius: 33%;
+    background-color: black;
+    box-shadow: 0px 0px 30px rgb(255, 255, 255);
+}
+
+#icono {
+    padding: 10px;
+    color: rgb(241, 130, 137); 
+}
+
+.user-span {
+    display: none;
+    position: absolute;
+    background-color: rgba(255, 255, 255);
+    color: black;
+    border: 1px solid rgb(177, 76, 83);
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 100;
+    top: 30px;     
+    right: 5px;    
+    white-space: nowrap;
+}
+
+.user-span a {
+    display: block; 
+    color: black;
+    text-decoration: none;
+    padding: 5px 0; 
+}
+
+.user-span a:hover {
+    text-decoration: underline;
+}
+
+.user-icon:hover .user-span {
+    display: block;
+}

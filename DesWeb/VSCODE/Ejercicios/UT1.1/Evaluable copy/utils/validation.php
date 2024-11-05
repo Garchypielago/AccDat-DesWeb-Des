@@ -83,13 +83,14 @@ function valRegPassword($password, $passwordCheck)
 
 // val el email de registro
 function ValRegEmail($a)
-{;
+{
+    // die("estoy");
     if (empty($a) || !is_string($a)) {
         return "El usuario esta vacío";
     }
 
     $sanitized_a = filter_var($a, FILTER_SANITIZE_EMAIL);
-    if ($sanitized_a != $a || !filter_var($sanitized_a, FILTER_VALIDATE_EMAIL)) {
+    if ($sanitized_a != $a && filter_var($sanitized_a, FILTER_VALIDATE_EMAIL)) {
         return "El usuario no admite este formato por seguridad.";
     }
 
@@ -178,7 +179,7 @@ function ValStartDate($startDate)
     }
 
     $hora = explode(":", $datos[1]);
-    if ($hora[0] < 0 || $hora[0] > 23 || $hora[1] < 0 || $hora[1] > 59) {
+    if ($hora[0]<0 || $hora[0]>23 || $hora[1]<0 || $hora[1]>59) {
         return "Hora de inicio no válida.";
     }
     return $startDate;
@@ -198,7 +199,7 @@ function ValEndDate($endDate, $startDate)
     }
 
     $hora = explode(":", $datos[1]);
-    if ($hora[0] < 0 || $hora[0] > 23 || $hora[1] < 0 || $hora[1] > 59) {
+    if ($hora[0]<0 || $hora[0]>23 || $hora[1]<0 || $hora[1]>59) {
         return "Hora de inicio no válida.";
     }
 
@@ -206,9 +207,13 @@ function ValEndDate($endDate, $startDate)
     $fechaInicio = new DateTime($startDate);
     $fechaFinal = new DateTime($endDate);
 
-    if ($fechaInicio > $fechaFinal) {
+    if ($fechaInicio>$fechaFinal){
         return "Fecha de inicio debe ser antes de la fecha final.";
     }
 
     return $endDate;
 }
+
+
+
+
