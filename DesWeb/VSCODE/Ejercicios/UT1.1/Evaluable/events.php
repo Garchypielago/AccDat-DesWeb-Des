@@ -3,6 +3,10 @@ session_start();
 include_once "entities/Event.php";
 require_once __DIR__ . "/utils/db.php";
 
+if (!isset($_SESSION['userId'])) {
+    header("Location: index.php");
+    die;
+}
 // para mostrar bien las fechas
 function visualizarfecha($dateString)
 {
