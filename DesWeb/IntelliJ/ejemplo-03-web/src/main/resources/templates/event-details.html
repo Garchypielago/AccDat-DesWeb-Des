@@ -1,12 +1,24 @@
 <!DOCTYPE html>
-<html lang="es">
+<html
+      xmlns:th="http://www.thymeleaf.org" lang="es">
 <head>
     <meta charset="UTF-8">
     <title>Detalle de evento</title>
+    <style>
+        body{
+            font-family: "Berlin Sans FB";
+        }
+    </style>
 </head>
 <body>
 
-<h1>Detalle de evento</h1>
+<h1>Detalle de evento <span th:text="${event.getEventId()}"></span> </h1>
+
+<p>Title: <span th:text="${event.getTitle()}"></span> </p>
+<p>Descripcion: <span th:text="${event.getDescription()}"></span> </p>
+<p>StartDate: <span th:text="${event.getStart()}"></span> </p>
+<p th:if="${event.getEnd()}!=null">EndDate: <span th:text="${event.getEnd()()}"></span> </p>
+<p th:if="${event.getEnd()}!==null">EndDate: No tiene fecha de finalizacion </p>
 
 <a href="/event">Volver a eventos</a>
 </body>
