@@ -1,4 +1,4 @@
-package es.garchypielago.dwes.ejemplo03web.model;
+package es.garchypielago.dwes.ejemplo03web.Entities;
 
 import lombok.*;
 
